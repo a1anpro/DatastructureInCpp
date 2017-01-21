@@ -1,6 +1,8 @@
-# DatastructureInCpp
+DatastructureInCpp
+====
 数据结构的c++实现（reference to:Data Structures and Algorithm Analysis in C++ BY Mark Allen Weiss）
-##目前实现：
+目前实现：
+-----
 *第三章：表、栈和队列
 1.表ADT(abstract data type)
 1.1.向量的实现
