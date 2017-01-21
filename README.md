@@ -11,6 +11,16 @@ DatastructureInCpp
 >2.栈ADT实现与运用（实现沿用表的内容）<br>
 >>2.1.平衡符号<br>
 >>2.2.后缀 表达式：中缀转后缀(infix to suffix)<br>
-'''c++
-#icnldue 
-'''
+
+``` python
+@requires_authorization
+def somefunc(param1='', param2=0):
+    '''A docstring'''
+    if param1 > param2: # interesting
+        print 'Greater'
+    return (param2 - param1 + 1) or None
+class SomeClass:
+    pass
+>>> message = '''interpreter
+... prompt'''
+```
