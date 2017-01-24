@@ -18,44 +18,46 @@ public:
 	int height() const;
 	bool contains(const Comparable& x) const;//包含某元素
 	bool isEmpty() const;//判断树是否为空
-	
+
 	void printTree() const//打印树
 	{
 
 	}
 
 	void makeEmpty();//置空
-	
+
 	void insert(const Comparable& x);
-	
+
 	void remove(const Comparable& x);
-	
-	
+
+
 	const BinarySearchTree<Comparable>& operator=(const BinarySearchTree<Comparable> &rhs);
-	
+
 private:
-	struct BinaryNode{
+
+	class BinaryNode {
+	public:
 		Comparable element;
 		BinaryNode *left;
 		BinaryNode *right;
 
 		int theHeight;//添加一个结点高度
 
-		//BinaryNode(const Comparable &theElement) {}
+					  //BinaryNode(const Comparable &theElement) {}
 		BinaryNode(const Comparable &theElement, BinaryNode *lt, BinaryNode *rt)//
 			: element(theElement), left(lt), right(rt) {
 			theHeight = 0;//默认为0
 		}
 	};
 
-	BinaryNode *root;//树根
+	typename BinarySearchTree::BinaryNode *root;//树根
 
 	int height(BinaryNode *root) const;
-	
+
 	bool contains(const Comparable& x, BinaryNode *root) const;//内部函数，不对外部开放
 
 	void insert(const Comparable& x, BinaryNode *&root);//内部插入函数
-	
+
 	void remove(const Comparable& x, BinaryNode *&root);//内部删除函数
 	void makeEmpty(BinaryNode *&root);
 
@@ -81,8 +83,18 @@ private:
 
 		return findMin(root->left);
 	}
-	BinaryNode* findMax(BinaryNode *root) const;
-	
+	BinaryNode* findMax(BinaryNode *root) const
+	{
+		if (root == NULL)
+		{
+			return NULL;//树为空
+		}
+		if (root->right == NULL)
+		{
+			return root;
+		}
+		return findMax(root->right);
+	}
 };
 
 
@@ -95,7 +107,11 @@ BinarySearchTree<Comparable>::BinarySearchTree()
 template<typename Comparable>
 BinarySearchTree<Comparable>::BinarySearchTree(const BinarySearchTree<Comparable>& rhs)
 {
-	*this = rhs;//直接调用赋值函数
+	root = NULL;//
+	if (this != &rhs)
+	{
+		*this = rhs;//直接调用赋值函数
+	}
 }
 
 template<typename Comparable>
@@ -156,11 +172,13 @@ void BinarySearchTree<Comparable>::remove(const Comparable & x)
 template<typename Comparable>
 const BinarySearchTree<Comparable>& BinarySearchTree<Comparable>::operator=(const BinarySearchTree<Comparable>& rhs)
 {
-	//if (this != &rhs)//如果不是指向一个对象
+	if (this != &rhs)//如果不是指向一个对象
 	{
 		makeEmpty();//释放原对象
 		root = clone(rhs.root);
 	}
+
+	return *this;
 }
 
 template<typename Comparable>
@@ -260,21 +278,3 @@ void BinarySearchTree<Comparable>::makeEmpty(BinaryNode *& root)
 	}
 	root = NULL;//必须要置为空NULL
 }
-
-template<typename Comparable>
-BinaryNode * BinarySearchTree<Comparable>::findMax(BinaryNode * root) const
-{
-	if (root == NULL)
-	{
-		return NULL;//树为空
-	}
-	if (root->right == NULL)
-	{
-		return root;
-	}
-	return findMax(root->right);
-}
-
-
-
-
